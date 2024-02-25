@@ -1,58 +1,64 @@
+## Relación de objetos en un partido de tenis de mesa
 ```mermaid
 classDiagram
-  Match <|---- Player
-  Player <|---- Table;
-  Player <|---- Racket;
-  Racket <|---- Blade;
-  Racket <|---- Rubber;
-  Player <|---- Ball;
-  Class Match {
-    + Location: str("Busan")
-    + Date: int (16)
-    + Type: str("Teams")
-    + Sets: int(5)
-    }
+  Match <|-- Player
+  Match <|-- Table
+  Player <|-- Racket
+  Racket <|-- Blade
+  Racket <|-- Rubber
+  Match <|-- Ball
 
-  Class Table {
-    + Brand: str("DHS")
-    + Number: int(1)
+  class Match {
+    +String Location
+    +int Date 
+    +String Type
+    +int Sets
+    +int round
+    +bool finished
+    +start()
   }
-  class Player {
-    + Name: str ("Hugo Calderano")
-    + Age: int (27)
-    + Advantage: int (0)
-    + Country: str ("Brazil")
-    + Hand: str ("Right Hand")
-    + Playing Style: str ("Offensive")
-    + Grip: str ("Handshake")
-    + Sponsor: str ("Xiom")
-    + win: bool(True)
-    + dopped: bool(False)
-  }
-
 
   class Table {
-    + Brand: str("DHS")
-    + Number: int(1)
+    +String Brand
+    +int Number
+    +clean()
   }
 
-  class Racket {}
+  class Player {
+    +String Name
+    +int Age
+    +int Advantage
+    +String Country
+    +String Hand
+    +String PlayingStyle
+    +String Grip
+    +String Sponsor
+    +win()
+    +dooped()
+  }
+
+  class Racket {
+    +int time of use
+    +break()
+  }
 
   class Blade {
-    + Name: str ("Sweden Classic")
-    + Style: str ("Neutral")
-    + Brand: str("Yasaka")
+    +String Name
+    +String Style
+    +String Brand
   }
 
   class Rubber {
-    + Name: str("Bluefire")
-    + Type: str("Inverted")
-    + Brand: str("Donic")
-    + Boosted: bool("False")
+    +String Name
+    +String Type
+    +String Brand
+    +bool Boosted
+
   }
 
   class Ball {
-    + Brand: str("Raise")
+    +String Brand
+    +bounce()
   }
 
 
