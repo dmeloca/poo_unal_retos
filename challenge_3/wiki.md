@@ -25,7 +25,6 @@ classDiagram
         + __init__(option: int, method: int, price: float)
     }
     class Service {
-        - tax: float
         + __init__(price: float, method: int, tax: float)
     }
     class ClientOrder {
@@ -45,6 +44,6 @@ classDiagram
     MenuItem <|-- SpecialCourse
     MenuItem <|-- DayCourse
     MenuItem <|-- Service
-    ClientOrder "1" o-- "0..*" MenuItem
+    ClientOrder  o-- MenuItem
 
 ```
