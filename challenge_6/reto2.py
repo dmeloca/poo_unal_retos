@@ -14,7 +14,7 @@ def ask_user(question:str) -> str: # Define a function to ask user and check the
     if answer == '':
         raise VoidWord()
     elif answer.isdigit():
-        raise DigitWord
+        raise DigitWord()
     else:
         return answer
 
