@@ -5,48 +5,48 @@ client_birthday = ["Luis", "Carlos", "Andrea", "Ana María"] ## "Base de datos" 
 day_course = ["Pasta con albóndigas", "Ajiaco", "Sudado", "Vegetariano"] ## Platos del día disponibles
 
 class MenuItem: 
-    def __init__(self, name: str, price: float, method: int):
-        self.name = name
-        self.price = price
-        self.method = method
+    def __init__(self, item: tuple) -> None:
+        self.name, self.price, self.method = item
 
 class Dessert(MenuItem):
-    def __init__(self, name: str, price: float, method: int):
-        super().__init__(name, price, method)
+    def __init__(self, item: tuple) -> None:
+        super().__init__(item)
 
 class Beverage(MenuItem):
-    def __init__(self, name: str, price: float, method: int):
-        super().__init__(name, price, method)
+    def __init__(self, item: tuple) -> None:
+        super().__init__(item)
 
 
 class Appetizer(MenuItem):
-    def __init__(self, name: str, price: float, method: int):
-        super().__init__(name, price, method)
+    def __init__(self, item: tuple):
+        super().__init__(item)
         
 
 class MainCourse(MenuItem):
-    def __init__(self, name: str, price: float, method: int):
-        super().__init__(name, price, method)
+    def __init__(self, item: tuple):
+        super().__init__(item)
 
 class SpecialCourse(MenuItem):
-    def __init__(self, name: str, price: float, method: int):
-        super().__init__(name, price, method)
+    def __init__(self, item: tuple):
+        super().__init__(item)
 
 class DayCourse(MenuItem):
-    def __init__(self, option: int, method: int, price: float = 10):
+    def __init__(self, option: int, item: tuple):
+        item: tuple = (day_course[option],) + item
         name: str = day_course[option]
-        super().__init__(name, price, method)
+        super().__init__(item)
 
 
 class Service(MenuItem):
-    def __init__(self, price: float, method: int, tax: float = 0):
-        super().__init__("Servicio", price, method)
+    def __init__(self, item: tuple):
+        item: tuple = ("Servicio",) + item
+        super().__init__(item)
 
 
 
 class ClientOrder:
-    def __init__(self, items: list, client: str, table: int, payment_method: str):
-        self.items = items
+    def __init__(self, client: str, table: int, payment_method: str):
+        self.items = []
         self.client = client
         self.table = table
         self.payment_method = payment_method
@@ -90,7 +90,10 @@ class ClientOrder:
             print(f"Sobrante:{' '*len(str(self.payment_method[1]-bill))}{' '*18}${self.payment_method[1]-bill:.2f}")
         elif self.payment_method[0] == "Tarjeta":
             print(f"Pago Aceptado")
-    
+
+    def add_item(self, item: MenuItem) -> None:
+        self.items.append(item)
+
     def __iter__(self):
         return MenuItemIterator(self.items)
 
@@ -112,19 +115,24 @@ class MenuItemIterator:
 
 
 def main():
-    drink_1 = Beverage("Hit", 20, 1)
-    drink_2 = Beverage("Ginger Ale", 20, 1)
-    drink_3 = Beverage("Agua", 5, 1)
-    appetizer_1 = Appetizer("Pan", 5, 1)
-    appetizer_2 = Appetizer("Arepas", 7, 1)
-    day_course_1 = DayCourse(0, 1)
-    special_course_1 = SpecialCourse("Baby Beef", 20, 1)
-    special_course_2 = SpecialCourse("Churrasco", 25, 1)
+    drink_1 = Beverage(("Hit", 20, 1))
+    drink_2 = Beverage(("Ginger Ale", 20, 1))
+    drink_3 = Beverage(("Agua", 5, 1))
+    appetizer_1 = Appetizer(("Pan", 5, 1))
+    appetizer_2 = Appetizer(("Arepas", 7, 1))
+    day_course_1 = DayCourse(0, (15, 1))
+    special_course_1 = SpecialCourse(("Baby Beef", 20, 1))
+    special_course_2 = SpecialCourse(("Churrasco", 25, 1))
 
-    order_1 = ClientOrder([drink_1, drink_2, drink_3, appetizer_2, appetizer_1, day_course_1, special_course_1, special_course_2], "Luis", 13, ["Efectivo", 70]) ## comentar para pago con tarjeta
-    #order_1 = ClientOrder([drink_1, drink_2, drink_3, appetizer_2, appetizer_1, day_course_1, special_course_1, special_course_2], "Luis", 13, ["Tarjeta"]) ## comentar para pago con Efectivo
+    order_1 = ClientOrder("Luis", 13, ["Efectivo", 70]) ## comentar para pago con tarjeta
+    order_1.add_item(drink_1)
+    order_1.add_item(drink_2)
+    order_1.add_item(drink_3)
+    order_1.add_item(appetizer_1)
+    order_1.add_item(appetizer_2)
     for item in order_1:
         name, price, method = item.name, item.price, item.method
+
         print(f"{name}: {price} ---> {method}")
 
 
