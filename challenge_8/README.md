@@ -29,14 +29,15 @@ To run the scraper, use the following command:
 ```bash
 python web_scraper.py <base_url> <target_element> <pages> [--output <output_format>]
 ```
+
 ## Parameters
-    - `<base_url>`: The base URL of the website to scrape.
-    - `<target_element>`: The CSS selector for the elements you want to extract (e.g., h1, p, .classname).
-    - `<pages>`: The number of pages to scrape (assuming pagination).
-    - --output `<output_format>: Optional parameter to specify the output format (json or csv). Default is json.
+- `<base_url>`: The base URL of the website to scrape.
+- `<target_element>`: The CSS selector for the elements you want to extract (e.g., h1, p, .classname).
+- `<pages>`: The number of pages to scrape (assuming pagination).
+- --output `<output_format>: Optional parameter to specify the output format (json or csv). Default is json.
 ## Example
 To scrape the first 5 pages of a website for h1 elements and save the results in CSV format:
 
 ```bash
-python web_scraper.py "https://example.com" "h1" 5 --output "csv"
+python web_scraper.py "https://archlinux.org" "p" 5 --output "json"
 ```
